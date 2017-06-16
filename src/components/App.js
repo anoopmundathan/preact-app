@@ -1,4 +1,5 @@
 import { h, Component } from 'preact';
+import User from './User';
 
 export default class App extends Component {
 
@@ -11,12 +12,9 @@ export default class App extends Component {
 	}
 
 	componentDidMount() {
-		fetch('https://api.github.com/users/anoopmundathan')
+		fetch(this.props.user.url)
 			.then(response => response.json())
 			.then(user => {
-				
-				console.log(user);
-
 				this.setState({
 					user: user,
 					loading: false
@@ -31,13 +29,8 @@ export default class App extends Component {
 					this.state.loading 
 					? 
 					<h1>Loading...</h1> 
-					:
-					<div>
-						<img src={this.state.user.avatar_url} alt="avatar"/>
-						<p>{this.state.user.name}</p>
-					</div>
+					: <User src={this.state.user.avatar_url} name={this.state.user.name}/>
 				}
-
 			</div>
 		);
 	
