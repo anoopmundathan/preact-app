@@ -15,24 +15,25 @@ export default class App extends Component {
 		fetch(this.props.user.url)
 			.then(response => response.json())
 			.then(user => {
-				this.setState({
-					user: user,
-					loading: false
-				});	
+				setTimeout(() => {
+					this.setState({
+						user: user,
+						loading: false
+					});	
+				}, 3000);
 			})
 			.catch(err => console.log(err));
 	}
-	render() {
+	render(props, {loading, user}) {
 		return(
 			<div>
 				{
-					this.state.loading 
+					loading 
 					? 
 					<h1>Loading...</h1> 
-					: <User src={this.state.user.avatar_url} name={this.state.user.name}/>
+					: <User src={user.avatar_url} name={user.name}/>
 				}
 			</div>
 		);
-	
 	}
 }
